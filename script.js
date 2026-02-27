@@ -14,7 +14,7 @@ async function sendMessage() {
     try {
 
         const response = await fetch(
-            `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,
+            `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${AIzaSyDNmMzJ4olYObOT-MbbTKz0-lO1eS69_Xg}`,
             {
                 method: "POST",
                 headers: {
@@ -51,4 +51,5 @@ async function sendMessage() {
 
     chat.scrollTop = chat.scrollHeight;
 }
+
 
