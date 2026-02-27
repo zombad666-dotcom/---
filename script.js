@@ -1,4 +1,4 @@
-const API_KEY = "projects/395145072276";
+const API_KEY = "AIzaSyDNmMzJ4olYObOT-MbbTKz0-lO1eS69_Xg";
 
 async function sendMessage() {
 
@@ -51,3 +51,4 @@ async function sendMessage() {
 
     chat.scrollTop = chat.scrollHeight;
 }
+
