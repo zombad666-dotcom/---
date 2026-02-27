@@ -1,45 +1,52 @@
-const API_KEY = "AIzaSyDNmMzJ4olYObOT-MbbTKz0-lO1eS69_Xg";
+const API_KEY = "projects/395145072276";
 
 async function sendMessage() {
 
-    const input = document.getElementById("userInput");
-    const chat = document.getElementById("chat");
+const input = document.getElementById("userInput");
+const chat = document.getElementById("chat");
 
-    const userMessage = input.value;
+const userMessage = input.value;
 
-    if (!userMessage) return;
+if (!userMessage) return;
 
-    // сообщение пользователя
-    chat.innerHTML += "<p><b>Вы:</b> " + userMessage + "</p>";
+chat.innerHTML += `<p><b>Вы:</b> ${userMessage}</p>`;
 
-    input.value = "";
+input.value = "";
 
-    const response = await fetch(
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + API_KEY,
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                contents: [
-                    {
-                        parts: [
-                            { text: userMessage }
-                        ]
-                    }
-                ]
-            })
-        }
-    );
+try {
 
-    const data = await response.json();
+const response = await fetch(
+`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,
+{
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify({
+contents: [
+{
+parts: [{ text: userMessage }]
+}
+]
+})
+}
+);
 
-    const botReply = data.candidates[0].content.parts[0].text;
+const data = await response.json();
 
-    // ответ бота
-    chat.innerHTML += "<p><b>Бот:</b> " + botReply + "</p>";
+console.log(data);
 
-    chat.scrollTop = chat.scrollHeight;
+const botReply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Ошибка ответа AI";
+
+chat.innerHTML += `<p><b>Бот:</b> ${botReply}</p>`;
+
+} catch (error) {
+
+chat.innerHTML += `<p><b>Ошибка:</b> AI не отвечает</p>`;
+console.error(error);
+
 }
 
+chat.scrollTop = chat.scrollHeight;
+
+}
